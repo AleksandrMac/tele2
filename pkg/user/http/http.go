@@ -1,28 +1,18 @@
 package http
 
 import (
-	"context"
-
+	"github.com/AleksandrMac/tele2/pkg/user/service"
 	"github.com/rs/zerolog"
 )
 
-type User struct {
-	ID   string
-	Name string
-}
-
-type Services interface {
-	CreateUser(ctx context.Context, name string) (id string, err error)
-	FindUserByName(ctx context.Context, name string, limit, offset int64) ([]User, error)
-}
-
 type HTTP struct {
-	log     *zerolog.Logger
-	service Services
+	Log *zerolog.Logger
+	service.Services
 }
 
-func New(log *zerolog.Logger, service Services) *HTTP {
+func New(log *zerolog.Logger, service service.Services) *HTTP {
 	return &HTTP{
-		service: service,
+		Log:      log,
+		Services: service,
 	}
 }
